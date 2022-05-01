@@ -68,6 +68,7 @@ class _TodoListState extends State<TodoList> {
           onPressed: () => _displayDialog(),
           tooltip: 'Add Item',
           child: const Icon(Icons.add)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
   void _handleTodoChange(Todo todo) {
