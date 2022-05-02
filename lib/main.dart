@@ -54,6 +54,7 @@ class _TodoListState extends State<TodoList> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todo List'),
+        backgroundColor: const Color(0xFF4169E1),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -65,6 +66,7 @@ class _TodoListState extends State<TodoList> {
         }).toList(),
       ),
       floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color(0xFF4169E1),
           onPressed: () => _displayDialog(),
           tooltip: 'Add Item',
           child: const Icon(Icons.add)),
