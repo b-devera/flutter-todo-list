@@ -21,6 +21,20 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      if (index == 3) {
+        _selectedIndex = index;
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+          const ProfilePage(title: 'Register UI'),
+        ));
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = UserData.myUser;
@@ -60,6 +74,31 @@ class _ProfilePageState extends State<ProfilePage> {
           //   flex: 4,
           // )
         ],
+      ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.access_time_outlined),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications_none),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.supervised_user_circle_outlined),
+            label: '',
+          ),
+        ],
+        onTap: _onItemTapped,
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color(0xFF4169E1),
       ),
     );
   }

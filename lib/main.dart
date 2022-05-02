@@ -30,7 +30,7 @@ class TodoApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Todo List',
-      home: ProfilePage(title: 'Profile'),
+      home: TodoList(title: 'Profile'),
     );
   }
 }

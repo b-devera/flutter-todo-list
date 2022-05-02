@@ -48,8 +48,22 @@ class TodoList extends StatefulWidget {
 }
 
 class _TodoListState extends State<TodoList> {
+  int _selectedIndex = 0;
+
   final TextEditingController _textFieldController = TextEditingController();
   final List<Todo> _todos = <Todo>[];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if (index == 3) {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+          const ProfilePage(title: 'Register UI'),
+        ));
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +103,9 @@ class _TodoListState extends State<TodoList> {
             label: '',
           ),
         ],
+        onTap: _onItemTapped,
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color(0xFF4169E1),
       ),
       floatingActionButton: FloatingActionButton(
           backgroundColor: const Color(0xFF4169E1),
