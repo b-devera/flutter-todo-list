@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-// import 'package:login_ui/login_screen.dart';
 import 'package:todo_app/login.dart';
+import 'package:todo_app/main.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key, required this.title}) : super(key: key);
@@ -18,7 +18,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: defaultColorScheme.secondary,
       body: Container(
         padding: const EdgeInsets.all(20),
         child: Column(

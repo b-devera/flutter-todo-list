@@ -7,6 +7,22 @@ class Todo {
   bool checked;
 }
 
+ColorScheme defaultColorScheme = const ColorScheme(
+  primary: Color(0x2B72FFFF),
+  primaryVariant: Color(0x2B72FFFF),
+  secondary: Color(0xffffffff),
+  secondaryVariant: Color(0xffffffff),
+  surface: Color(0xff181818),
+  background: Color(0xffb64545),
+  error: Color(0xffCF6679),
+  onPrimary: Color(0xff000000),
+  onSecondary: Color(0xff000000),
+  onSurface: Color(0xffffffff),
+  onBackground: Color(0xffffffff),
+  onError: Color(0xff000000),
+  brightness: Brightness.dark,
+);
+
 class TodoItem extends StatelessWidget {
   TodoItem({
     required this.todo,
@@ -55,6 +71,7 @@ class _TodoListState extends State<TodoList> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todo List'),
+        backgroundColor: const Color(0xFF4169E1),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -66,9 +83,11 @@ class _TodoListState extends State<TodoList> {
         }).toList(),
       ),
       floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color(0xFF4169E1),
           onPressed: () => _displayDialog(),
           tooltip: 'Add Item',
           child: const Icon(Icons.add)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
   void _handleTodoChange(Todo todo) {
