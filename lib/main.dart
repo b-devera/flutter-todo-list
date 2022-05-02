@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/Profile/profile_page.dart';
 import 'package:todo_app/TodoList.dart';
 import 'package:todo_app/signin.dart';
 import 'login.dart';
@@ -29,7 +30,7 @@ class TodoApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Todo List',
-      home: TodoList(title: 'Todo List'),
+      home: ProfilePage(title: 'Profile'),
     );
   }
 }
