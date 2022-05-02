@@ -121,8 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                       const Text('Not registered yet?'),
                       TextButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
+                          Navigator.pushReplacement(context,
                             MaterialPageRoute(
                               builder: (context) =>
                               const RegisterPage(title: 'Register UI'),

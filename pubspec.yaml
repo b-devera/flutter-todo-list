@@ -30,6 +30,12 @@ dependencies:
   flutter:
     sdk: flutter
   email_validator:
+  image_picker:
+  strings_validator:
+  shared_preferences:
+  path_provider:
+  string_validator:
+
 
 
   # The following adds the Cupertino Icons font to your application.

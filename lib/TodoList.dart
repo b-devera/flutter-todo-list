@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/Profile/profile_page.dart';
 
 class Todo {
   Todo({required this.name, required this.checked});
@@ -66,27 +67,27 @@ class _TodoListState extends State<TodoList> {
           );
         }).toList(),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.access_time_outlined),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_none),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.supervised_user_circle_outlined),
-            label: '',
-          ),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   type: BottomNavigationBarType.fixed,
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.menu),
+      //       label: '',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.access_time_outlined),
+      //       label: '',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.notifications_none),
+      //       label: '',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.supervised_user_circle_outlined),
+      //       label: '',
+      //     ),
+      //   ],
+      // ),
       floatingActionButton: FloatingActionButton(
           backgroundColor: const Color(0xFF4169E1),
           onPressed: () => _displayDialog(),
