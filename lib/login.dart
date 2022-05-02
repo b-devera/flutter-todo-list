@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: defaultColorScheme.secondary,
+      backgroundColor: defaultColorScheme.background,
       body: Container(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -102,6 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
+                      primary: defaultColorScheme.secondary,
                       padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
                     ),
                     child: const Text(

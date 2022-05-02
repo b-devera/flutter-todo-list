@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/signin.dart';
 import 'login.dart';
 
 ColorScheme defaultColorScheme = const ColorScheme(
   primary: Color(0x2B72FFFF),
   primaryVariant: Color(0x2B72FFFF),
-  secondary: Color(0xffffffff),
+  secondary: Color(0xFF4169E1), //For button color
   secondaryVariant: Color(0xffffffff),
   surface: Color(0xff181818),
-  background: Color(0xffb64545),
-  error: Color(0xffCF6679),
+  background: Color(0xffffffff),
+  error: Color(0xffff002d),
   onPrimary: Color(0xff000000),
   onSecondary: Color(0xff000000),
   onSurface: Color(0xffffffff),
@@ -27,7 +28,7 @@ class TodoApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Todo List',
-      home: LoginPage(title: 'Login UI'),
+      home: RegisterPage(title: 'Login UI'),
     );
   }
 }
