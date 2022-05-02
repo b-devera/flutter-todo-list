@@ -3,6 +3,7 @@ class User {
   String name;
   String email;
   String phone;
+  String password;
   String aboutMeDescription;
 
   // Constructor
@@ -11,6 +12,7 @@ class User {
     required this.name,
     required this.email,
     required this.phone,
+    required this.password,
     required this.aboutMeDescription,
   });
 
@@ -19,6 +21,7 @@ class User {
     String? name,
     String? phone,
     String? email,
+    String? password,
     String? about,
   }) =>
       User(
@@ -26,6 +29,7 @@ class User {
         name: name ?? this.name,
         email: email ?? this.email,
         phone: phone ?? this.phone,
+        password: password ?? this.password,
         aboutMeDescription: about ?? this.aboutMeDescription,
       );
 
@@ -35,6 +39,7 @@ class User {
         email: json['email'],
         aboutMeDescription: json['about'],
         phone: json['phone'],
+        password: json['password'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,5 +48,6 @@ class User {
         'email': email,
         'about': aboutMeDescription,
         'phone': phone,
+        'password': password,
       };
 }

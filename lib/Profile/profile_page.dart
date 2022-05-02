@@ -5,6 +5,7 @@ import 'package:todo_app/Profile/edit_description.dart';
 import 'package:todo_app/Profile/edit_email.dart';
 import 'package:todo_app/Profile/edit_image.dart';
 import 'package:todo_app/Profile/edit_name.dart';
+import 'package:todo_app/Profile/edit_password.dart';
 import 'package:todo_app/Profile/edit_phone.dart';
 import 'package:todo_app/Profile/user.dart';
 import 'package:todo_app/Profile/display_image_widget.dart';
@@ -52,12 +53,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () {},
               )),
           buildUserInfoDisplay(user.name, 'Name', EditNameFormPage()),
-          buildUserInfoDisplay(user.phone, 'Phone', EditPhoneFormPage()),
           buildUserInfoDisplay(user.email, 'Email', EditEmailFormPage()),
-          Expanded(
-            child: buildAbout(user),
-            flex: 4,
-          )
+          buildUserInfoDisplay(user.password, 'Password', EditPasswordFormPage()),
+          // Expanded(
+          //   child: buildAbout(user),
+          //   flex: 4,
+          // )
         ],
       ),
     );
@@ -110,54 +111,54 @@ class _ProfilePageState extends State<ProfilePage> {
           ));
 
   // Widget builds the About Me Section
-  Widget buildAbout(User user) => Padding(
-      padding: EdgeInsets.only(bottom: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Tell Us About Yourself',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey,
-            ),
-          ),
-          const SizedBox(height: 1),
-          Container(
-              width: 350,
-              height: 200,
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                color: Colors.grey,
-                width: 1,
-              ))),
-              child: Row(children: [
-                Expanded(
-                    child: TextButton(
-                        onPressed: () {
-                          navigateSecondPage(EditDescriptionFormPage());
-                        },
-                        child: Padding(
-                            padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-                            child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  user.aboutMeDescription,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    height: 1.4,
-                                  ),
-                                ))))),
-                Icon(
-                  Icons.keyboard_arrow_right,
-                  color: Colors.grey,
-                  size: 40.0,
-                )
-              ]))
-        ],
-      ));
+  // Widget buildAbout(User user) => Padding(
+  //     padding: EdgeInsets.only(bottom: 10),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text(
+  //           'Tell Us About Yourself',
+  //           style: TextStyle(
+  //             fontSize: 15,
+  //             fontWeight: FontWeight.w500,
+  //             color: Colors.grey,
+  //           ),
+  //         ),
+  //         const SizedBox(height: 1),
+  //         Container(
+  //             width: 350,
+  //             height: 200,
+  //             decoration: BoxDecoration(
+  //                 border: Border(
+  //                     bottom: BorderSide(
+  //               color: Colors.grey,
+  //               width: 1,
+  //             ))),
+  //             child: Row(children: [
+  //               Expanded(
+  //                   child: TextButton(
+  //                       onPressed: () {
+  //                         navigateSecondPage(EditDescriptionFormPage());
+  //                       },
+  //                       child: Padding(
+  //                           padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
+  //                           child: Align(
+  //                               alignment: Alignment.topLeft,
+  //                               child: Text(
+  //                                 user.aboutMeDescription,
+  //                                 style: TextStyle(
+  //                                   fontSize: 16,
+  //                                   height: 1.4,
+  //                                 ),
+  //                               ))))),
+  //               Icon(
+  //                 Icons.keyboard_arrow_right,
+  //                 color: Colors.grey,
+  //                 size: 40.0,
+  //               )
+  //             ]))
+  //       ],
+  //     ));
 
   // Refrshes the Page after updating user info.
   FutureOr onGoBack(dynamic value) {
