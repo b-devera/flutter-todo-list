@@ -30,7 +30,11 @@ class TodoApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Todo List',
-      home: TodoList(title: 'Profile'),
+//<<<<<<< Updated upstream
+    //  home: TodoList(title: 'Profile'),
+//=======
+      home: RegisterPage (title: 'Profile'),
+//>>>>>>> Stashed changes
     );
   }
 }

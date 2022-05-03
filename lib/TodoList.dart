@@ -20,9 +20,10 @@ class TodoItem extends StatelessWidget {
     if (!checked) return null;
 
     return const TextStyle(
-      color: Colors.black54,
+      color: Colors.red,
       decoration: TextDecoration.lineThrough,
     );
+
   }
 
   @override
@@ -35,7 +36,27 @@ class TodoItem extends StatelessWidget {
         child: Text(todo.name[0]),
       ),
       title: Text(todo.name, style: _getTextStyle(todo.checked)),
-    );
+
+
+
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              IconButton(
+
+                icon: Icon(
+                  Icons.delete_outline,
+                  size: 20.0,
+                  color: Colors.brown[900],
+                ),
+              onPressed: () {
+
+                 // _onDeleteItemPressed(index);
+              },
+              ),
+            ],
+          ),
+        );
   }
 }
 
