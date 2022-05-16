@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/Profile/profile_page.dart';
+import 'package:todo_app/RegisterList.dart';
 import 'package:todo_app/TodoList.dart';
 import 'package:todo_app/signin.dart';
 import 'login.dart';
@@ -30,11 +31,9 @@ class TodoApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Todo List',
-//<<<<<<< Updated upstream
-    //  home: TodoList(title: 'Profile'),
-//=======
-      home: RegisterPage (title: 'Profile'),
-//>>>>>>> Stashed changes
+
+      home: RegisterList (title: 'Profile'),
+
     );
   }
 }
