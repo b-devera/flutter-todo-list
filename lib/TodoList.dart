@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:todo_app/Profile/profile_page.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'dart:developer';
 
 
 class Todo {
@@ -39,6 +42,7 @@ class TodoItem extends StatelessWidget {
       },
       leading: CircleAvatar(
         child: Text(todo.name[0]),
+
       ),
       title: Text(todo.name, style: _getTextStyle(todo.checked)),
 
@@ -77,6 +81,7 @@ class _TodoListState extends State<TodoList> {
   int _selectedIndex = 0;
   var pickeddate;
   var pickedtime;
+  var pickeddateText;
 
   final TextEditingController _textFieldController = TextEditingController();
   final TextEditingController _textFieldEventNameController = TextEditingController();
@@ -219,13 +224,30 @@ class _TodoListState extends State<TodoList> {
                           print('confirm $date');
                           setState(() {
                             pickeddate = date.day+date.month+date.year;
+                            pickeddateText =
+                            "Picked Date is : ${date.day}/${date.month}/${date.year}";
                           });
                         }, currentTime: DateTime.now(), locale: LocaleType.en);
                   },
                   label: Text("Set Date"),
                   icon: Icon(Icons.date_range),
                 ),
-
+                SizedBox(
+                  height: 50,
+                ),
+                Container(
+                  child: (pickeddate == null)
+                      ? Text("Select a date Please")
+                      : Text("$pickeddate"),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  child: (pickeddateText == null)
+                      ? Text("Select a time Please")
+                      : Text("$pickeddateText"),
+                ),
               ],
             ),
           ),
