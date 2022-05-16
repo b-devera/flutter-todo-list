@@ -32,7 +32,7 @@ class TodoApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Todo List',
 
-      home: RegisterList (title: 'Profile'),
+      home: TodoList (title: 'To DO List'),
 
     );
   }

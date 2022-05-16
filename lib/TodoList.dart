@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/Profile/profile_page.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+
 
 class Todo {
-  Todo({required this.name, required this.checked});
+  Todo({required this.name, required this.category, required this.date, required this.time, required this.checked});
   final String name;
+  final String category;
+  final DateTime date;
+  final DateTime time;
   bool checked;
 }
 
@@ -70,8 +75,11 @@ class TodoList extends StatefulWidget {
 
 class _TodoListState extends State<TodoList> {
   int _selectedIndex = 0;
+  var pickeddate;
+  var pickedtime;
 
   final TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _textFieldEventNameController = TextEditingController();
   final List<Todo> _todos = <Todo>[];
 
   void _onItemTapped(int index) {
@@ -142,11 +150,14 @@ class _TodoListState extends State<TodoList> {
     });
   }
 
-  void _addTodoItem(String name) {
+  void _addTodoItem(String name, String category, DateTime date, DateTime time) {
     setState(() {
-      _todos.add(Todo(name: name, checked: false));
+      _todos.add(Todo(name: name, category: category, date: date, time: time, checked: false));
     });
     _textFieldController.clear();
+    _textFieldEventNameController.clear();
+    pickedtime.clear();
+    pickeddate.clear();
   }
 
   Future<void> _displayDialog() async {
@@ -156,16 +167,76 @@ class _TodoListState extends State<TodoList> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('New Task'),
-          content: TextField(
-            controller: _textFieldController,
-            decoration: const InputDecoration(hintText: 'Enter your task here'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter your task here',
+                  ),
+                  controller: _textFieldController,
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter Event Category',
+                  ),
+                  controller: _textFieldEventNameController,
+                ),
+                SizedBox(
+                  height: 50.0,
+                ),
+                FloatingActionButton.extended(
+                  onPressed: () {
+                    DatePicker.showTime12hPicker(context,
+                        showTitleActions: true,
+                        currentTime: DateTime.now(), onConfirm: (time) {
+                          setState(() {
+                            pickedtime = time.hour+time.minute;
+                          });
+                        });
+                  },
+                  label: Text("Set Time"),
+                  icon: Icon(Icons.timer),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                FloatingActionButton.extended(
+                  onPressed: () {
+                    DatePicker.showDatePicker(context,
+                        showTitleActions: true,
+                        minTime: DateTime(2018, 3, 5),
+                        maxTime: DateTime(2026, 6, 7), onChanged: (date) {
+                          print('change $date');
+                          setState(() {
+                            pickeddate = date.day;
+                          });
+                        }, onConfirm: (date) {
+                          print('confirm $date');
+                          setState(() {
+                            pickeddate = date.day+date.month+date.year;
+                          });
+                        }, currentTime: DateTime.now(), locale: LocaleType.en);
+                  },
+                  label: Text("Set Date"),
+                  icon: Icon(Icons.date_range),
+                ),
+
+              ],
+            ),
           ),
+
+
           actions: <Widget>[
             TextButton(
               child: const Text('Add'),
               onPressed: () {
                 Navigator.of(context).pop();
-                _addTodoItem(_textFieldController.text);
+                _addTodoItem(_textFieldController.text, _textFieldEventNameController.text, pickeddate, pickedtime);
               },
             ),
           ],
