@@ -10,8 +10,8 @@ class Todo {
   Todo({required this.name, required this.category, required this.date, required this.time, required this.checked});
   final String name;
   final String category;
-  final DateTime date;
-  final DateTime time;
+  final int date;
+  final int time;
   bool checked;
 }
 
@@ -155,7 +155,7 @@ class _TodoListState extends State<TodoList> {
     });
   }
 
-  void _addTodoItem(String name, String category, DateTime date, DateTime time) {
+  void _addTodoItem(String name, String category, int date, int time) {
     setState(() {
       _todos.add(Todo(name: name, category: category, date: date, time: time, checked: false));
     });
