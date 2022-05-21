@@ -4,10 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:todo_app/Database/ListData.dart';
 import 'package:todo_app/Database/database_setting.dart';
-import 'package:todo_app/Profile/profile_page.dart';
 
-import 'package:todo_app/Profile/user_data.dart';
-import 'package:todo_app/TodoList.dart';
 
 // This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
 class RegisterList extends StatefulWidget {
@@ -24,11 +21,11 @@ class _RegisterListState extends State<RegisterList> {
   final _formKey = GlobalKey<FormState>();
 
   String? _title = "";
-  String? _priority = "Low";
+  String? _category = "School";
   DateTime? _date = DateTime.now();
   TextEditingController _dateController = TextEditingController();
   final DateFormat _dateFormatter = DateFormat('MMM dd, yyyy');
-  final List<String> _priorities = ["Low", "Medium", "High"];
+  final List<String> _categorise = ["School", "Work", "Daily"];
 
   _handleDatePicker() async {
     final DateTime? date = await showDatePicker(
@@ -47,10 +44,10 @@ class _RegisterListState extends State<RegisterList> {
   _submit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print('$_title, $_priority, $_date');
+      print('$_title, $_category, $_date');
 
       // Insert Task to Users Database
-      Task task = Task(title: _title, date: _date, priority: _priority);
+      Task task = Task(title: _title, date: _date, category: _category);
       if (widget.task == null) {
         task.status = 0;
         DatabaseSetting.instance.insertTask(task);
@@ -79,7 +76,7 @@ class _RegisterListState extends State<RegisterList> {
 
     if (widget.task != null) {
       _title = widget.task!.title;
-      _priority = widget.task!.priority;
+      _category = widget.task!.category;
       _date = widget.task!.date;
     }
   }
@@ -176,7 +173,7 @@ class _RegisterListState extends State<RegisterList> {
                           iconEnabledColor: Theme.of(context).primaryColor,
                           style: TextStyle(fontSize: 18),
                           decoration: InputDecoration(
-                              labelText: 'Priority',
+                              labelText: 'Category',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 fontFamily: 'ProximaNova',
@@ -187,14 +184,14 @@ class _RegisterListState extends State<RegisterList> {
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (dynamic input) =>
                           input.toString().trim().isEmpty
-                              ? 'Please Select a Priority Level'
+                              ? 'Please Select a Category'
                               : null,
-                          // onSaved: (input) => _priority = input.toString(),
-                          items: _priorities.map((String priority) {
+                          // onSaved: (input) => _category = input.toString(),
+                          items: _categorise.map((String category) {
                             return DropdownMenuItem(
-                                value: priority,
+                                value: category,
                                 child: new Text(
-                                  priority,
+                                  category,
                                   style: TextStyle(
                                       fontFamily: 'ProximaNova',
                                       color: Colors.black,
@@ -205,10 +202,10 @@ class _RegisterListState extends State<RegisterList> {
                           onChanged: (dynamic newValue) {
                             print(newValue.runtimeType);
                             setState(() {
-                              _priority = newValue.toString();
+                              _category = newValue.toString();
                             });
                           },
-                          // value : _priority
+                          // value : _category
                         ),
                       ),
                       Container(

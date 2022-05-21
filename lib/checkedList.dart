@@ -6,20 +6,20 @@ import 'package:todo_app/Profile/profile_page.dart';
 import 'package:todo_app/Database/ListData.dart';
 import 'package:todo_app/Database/database_setting.dart';
 import 'package:todo_app/RegisterList.dart';
-import 'package:todo_app/checkedList.dart';
+import 'package:todo_app/TodoList.dart';
 
 
 
 
-class TodoList extends StatefulWidget {
+class checkedList extends StatefulWidget {
   // const TodoList({Key? key, required this.title}) : super(key: key);
   // final String title;
 
   @override
-  _TodoListState createState() => _TodoListState();
+  _checkedList createState() => _checkedList();
 }
 
-class _TodoListState extends State<TodoList> {
+class _checkedList extends State<checkedList> {
   Future<List<Task>>? _taskList;
   final DateFormat _dateFormatter = DateFormat('MMM dd, yyyy');
 
@@ -31,7 +31,7 @@ class _TodoListState extends State<TodoList> {
 
   _updateTaskList() {
     setState(() {
-      _taskList = DatabaseSetting.instance.getTaskList();
+      _taskList = DatabaseSetting.instance.getCheckedTaskList();
     });
   }
 
@@ -70,7 +70,6 @@ class _TodoListState extends State<TodoList> {
               activeColor: Theme.of(context).primaryColor,
               value: task.status == 1 ? true : false,
             ),
-
           ),
           Divider()
         ],
@@ -82,7 +81,7 @@ class _TodoListState extends State<TodoList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ToDo List',
+        title: Text('Completed List',
             style: TextStyle(
               fontFamily: 'ProximaNova',
               fontWeight: FontWeight.w800,
@@ -166,11 +165,11 @@ class _TodoListState extends State<TodoList> {
       body: FutureBuilder(
         future: _taskList,
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+          // if (!snapshot.hasData) {
+          //   return Center(
+          //     child: CircularProgressIndicator(),
+          //   );
+          // }
 
           final int? completedTaskCount = (snapshot.data as List<Task>)
               .where((Task task) => task.status == 1)
@@ -200,6 +199,7 @@ class _TodoListState extends State<TodoList> {
                       SizedBox(
                         height: 10.0,
                       ),
+
                     ],
                   ),
                 );
@@ -211,4 +211,5 @@ class _TodoListState extends State<TodoList> {
       ),
     );
   }
+
 }

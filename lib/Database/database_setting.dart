@@ -14,7 +14,7 @@ class DatabaseSetting {
   String colId = 'id';
   String colTitle = 'title';
   String colDate = 'date';
-  String colPriority = 'priority';
+  String colCategory = 'category';
   String colStatus = 'status';
 
   Future<Database> get db async {
@@ -33,7 +33,7 @@ class DatabaseSetting {
 
   void _createDb(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE $tasksTable ($colId INTEGER PRIMARY KEY AUTOINCREMENT,$colTitle TEXT, $colDate TEXT, $colPriority TEXT, $colStatus INTEGER)');
+        'CREATE TABLE $tasksTable ($colId INTEGER PRIMARY KEY AUTOINCREMENT,$colTitle TEXT, $colDate TEXT, $colCategory TEXT, $colStatus INTEGER)');
   }
 
   Future<List<Map<String, dynamic>>> getMapTaskList() async {
@@ -41,12 +41,27 @@ class DatabaseSetting {
     final List<Map<String, dynamic>> result = await db.query(tasksTable);
     return result;
   }
-
+  //List only uncheck mark tasks
   Future<List<Task>> getTaskList() async {
     final List<Map<String, dynamic>> taskMapList = await getMapTaskList();
     final List<Task> taskList = [];
     taskMapList.forEach((taskMap) {
-      taskList.add(Task.fromMap(taskMap));
+      if(Task.fromMap(taskMap).status == 0){
+        taskList.add(Task.fromMap(taskMap));
+      }
+    });
+    taskList.sort((taskA, taskB) => taskA.date!.compareTo(taskB.date!));
+    return taskList;
+  }
+
+  //List only checked mark tasks
+  Future<List<Task>> getCheckedTaskList() async {
+    final List<Map<String, dynamic>> checkedTaskMapList = await getMapTaskList();
+    final List<Task> taskList = [];
+    checkedTaskMapList.forEach((taskMap) {
+      if(Task.fromMap(taskMap).status == 1){
+        taskList.add(Task.fromMap(taskMap));
+      }
     });
     taskList.sort((taskA, taskB) => taskA.date!.compareTo(taskB.date!));
     return taskList;
