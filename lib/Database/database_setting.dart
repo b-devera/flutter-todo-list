@@ -56,56 +56,68 @@ class DatabaseSetting {
     return taskList;
   }
 
+  //List only checked mark tasks
+  Future<List<Task>> getCheckedTaskList() async {
+    final List<Map<String, dynamic>> taskMapList = await getMapTaskList();
+    final List<Task> taskList = [];
+    taskMapList.forEach((taskMap) {
+      if(Task.fromMap(taskMap).status == 1){
+        taskList.add(Task.fromMap(taskMap));
+      }
+    });
+    taskList.sort((taskA, taskB) => taskA.date!.compareTo(taskB.date!));
+    return taskList;
+  }
+
+  //List only category mark tasks
   Future<List<Task>> getCatOederTaskList() async {
     final List<Map<String, dynamic>> taskMapList = await getMapTaskList();
     final List<Task> taskList = [];
     taskMapList.forEach((taskMap) {
-      if(Task.fromMap(taskMap).status == 0){
-        taskList.add(Task.fromMap(taskMap));
-      }
+      taskList.add(Task.fromMap(taskMap));
     });
     taskList.sort((taskA, taskB) => taskA.category!.compareTo(taskB.category!));
     return taskList;
   }
 
-  //Make school category list
-  Future<List<Task>> getSchoolCatTaskList() async {
-    final List<Map<String, dynamic>> taskMapList = await getMapTaskList();
-    final List<Task> schoolCatList = [];
-    taskMapList.forEach((taskMap) {
-      if(Task.fromMap(taskMap).category == 'School') {
-        schoolCatList.add(Task.fromMap(taskMap));
-      }
-    });
-    schoolCatList.sort((taskA, taskB) => taskA.date!.compareTo(taskB.date!));
-    return schoolCatList;
-  }
-
-  //Make work category list
-  Future<List<Task>> getWorkCatTaskList() async {
-    final List<Map<String, dynamic>> taskMapList = await getMapTaskList();
-    final List<Task> workCatList = [];
-    taskMapList.forEach((taskMap) {
-      if(Task.fromMap(taskMap).category == 'Work'){
-        workCatList.add(Task.fromMap(taskMap));
-      }
-    });
-    workCatList.sort((taskA, taskB) => taskA.date!.compareTo(taskB.date!));
-    return workCatList;
-  }
-
-  //Make daily category list
-  Future<List<Task>> getDailyCatTaskList() async {
-    final List<Map<String, dynamic>> taskMapList = await getMapTaskList();
-    final List<Task> dailyCatList = [];
-    taskMapList.forEach((taskMap) {
-      if(Task.fromMap(taskMap).category == 'Daily'){
-        dailyCatList.add(Task.fromMap(taskMap));
-      }
-    });
-    dailyCatList.sort((taskA, taskB) => taskA.date!.compareTo(taskB.date!));
-    return dailyCatList;
-  }
+  // //Make school category list
+  // Future<List<Task>> getSchoolCatTaskList() async {
+  //   final List<Map<String, dynamic>> taskMapList = await getMapTaskList();
+  //   final List<Task> schoolCatList = [];
+  //   taskMapList.forEach((taskMap) {
+  //     if(Task.fromMap(taskMap).category == 'School') {
+  //       schoolCatList.add(Task.fromMap(taskMap));
+  //     }
+  //   });
+  //   schoolCatList.sort((taskA, taskB) => taskA.date!.compareTo(taskB.date!));
+  //   return schoolCatList;
+  // }
+  //
+  // //Make work category list
+  // Future<List<Task>> getWorkCatTaskList() async {
+  //   final List<Map<String, dynamic>> taskMapList = await getMapTaskList();
+  //   final List<Task> workCatList = [];
+  //   taskMapList.forEach((taskMap) {
+  //     if(Task.fromMap(taskMap).category == 'Work'){
+  //       workCatList.add(Task.fromMap(taskMap));
+  //     }
+  //   });
+  //   workCatList.sort((taskA, taskB) => taskA.date!.compareTo(taskB.date!));
+  //   return workCatList;
+  // }
+  //
+  // //Make daily category list
+  // Future<List<Task>> getDailyCatTaskList() async {
+  //   final List<Map<String, dynamic>> taskMapList = await getMapTaskList();
+  //   final List<Task> dailyCatList = [];
+  //   taskMapList.forEach((taskMap) {
+  //     if(Task.fromMap(taskMap).category == 'Daily'){
+  //       dailyCatList.add(Task.fromMap(taskMap));
+  //     }
+  //   });
+  //   dailyCatList.sort((taskA, taskB) => taskA.date!.compareTo(taskB.date!));
+  //   return dailyCatList;
+  // }
 
   Future<int> insertTask(Task task) async {
     Database db = await this.db;

@@ -43,7 +43,7 @@ class _TodoListState extends State<TodoList> {
         children: [
           ListTile(
             title: Text(
-              task.title!,
+             'Event: ${(task.title!)}',
               style: TextStyle(
                   fontFamily: 'ProximaNova',
                   fontWeight: FontWeight.w800,
@@ -71,6 +71,11 @@ class _TodoListState extends State<TodoList> {
               activeColor: Theme.of(context).primaryColor,
               value: task.status == 1 ? true : false,
             ),
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => RegisterList(
+                        updateTaskList: _updateTaskList, task: task))),
 
           ),
           Divider()
@@ -188,19 +193,11 @@ class _TodoListState extends State<TodoList> {
               if (index == 0) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 20.0, horizontal: 40.0),
+                      vertical: 2.0, horizontal: 40.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'No Tasks',
-                        style: TextStyle(
-                          fontFamily: 'ProximaNova',
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 30,
-                        ),
-                      ),
+
                       SizedBox(
                         height: 10.0,
                       ),

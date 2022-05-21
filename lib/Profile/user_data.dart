@@ -10,8 +10,8 @@ class UserData {
   static User myUser = User(
     image:
         "https://upload.wikimedia.org/wikipedia/en/0/0b/Darth_Vader_in_The_Empire_Strikes_Back.jpg",
-    name: 'Test Test',
-    email: 'test.test@gmail.com',
+    name: 'Clarence Powell',
+    email: 'clarence.powel@gmail.com',
     phone: '(208) 206-5039',
     password: 'test',
     aboutMeDescription:

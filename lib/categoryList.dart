@@ -23,10 +23,7 @@ class categoryList extends StatefulWidget {
 
 class _categoryList extends State<categoryList> {
   Future<List<Task>>? _taskList;
-
   final DateFormat _dateFormatter = DateFormat('MMM dd, yyyy');
-
-
 
   @override
   void initState() {
@@ -36,20 +33,18 @@ class _categoryList extends State<categoryList> {
 
   _updateTaskList() {
     setState(() {
-      _taskList = DatabaseSetting.instance.getCheckedTaskList();
+      _taskList = DatabaseSetting.instance.getCatOederTaskList();
     });
   }
-
 
   Widget _buildTask(Task task) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 25),
       child: Column(
-
         children: [
           ListTile(
             title: Text(
-              task.title!,
+              'Category: ${(task.category!)}',
               style: TextStyle(
                   fontFamily: 'ProximaNova',
                   fontWeight: FontWeight.w800,
@@ -59,7 +54,7 @@ class _categoryList extends State<categoryList> {
                       : TextDecoration.lineThrough),
             ),
             subtitle: Text(
-              '${_dateFormatter.format(task.date!)} * ${task.category}',
+              'Event: ${(task.title!)} | ${_dateFormatter.format(task.date!)}',
               style: TextStyle(
                   fontFamily: 'ProximaNova',
                   fontWeight: FontWeight.w800,
@@ -74,7 +69,9 @@ class _categoryList extends State<categoryList> {
                 DatabaseSetting.instance.updateTask(task);
                 _updateTaskList();
               },
-              activeColor: Theme.of(context).primaryColor,
+              activeColor: Theme
+                  .of(context)
+                  .primaryColor,
               value: task.status == 1 ? true : false,
             ),
           ),
@@ -88,7 +85,7 @@ class _categoryList extends State<categoryList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Category',
+        title: Text('Completed List',
             style: TextStyle(
               fontFamily: 'ProximaNova',
               fontWeight: FontWeight.w800,
@@ -106,7 +103,8 @@ class _categoryList extends State<categoryList> {
                   iconSize: 30.0,
                   padding: EdgeInsets.only(left: 28.0),
                   icon: Icon(Icons.home),
-                  onPressed: ()=> {
+                  onPressed: () =>
+                  {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -119,7 +117,8 @@ class _categoryList extends State<categoryList> {
                   iconSize: 30.0,
                   padding: EdgeInsets.only(left: 28.0),
                   icon: Icon(Icons.all_inbox),
-                  onPressed: ()=> {
+                  onPressed: () =>
+                  {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -132,7 +131,8 @@ class _categoryList extends State<categoryList> {
                   iconSize: 30.0,
                   padding: EdgeInsets.only(left: 28.0),
                   icon: Icon(Icons.access_time_outlined),
-                  onPressed: ()=> {
+                  onPressed: () =>
+                  {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -145,7 +145,8 @@ class _categoryList extends State<categoryList> {
                   iconSize: 30.0,
                   padding: EdgeInsets.only(left: 28.0),
                   icon: Icon(Icons.people),
-                  onPressed: ()=> {
+                  onPressed: () =>
+                  {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -161,8 +162,11 @@ class _categoryList extends State<categoryList> {
         // currentIndex: _selectedIndex,
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        onPressed: () => {
+        backgroundColor: Theme
+            .of(context)
+            .primaryColor,
+        onPressed: () =>
+        {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -187,83 +191,29 @@ class _categoryList extends State<categoryList> {
               .length;
 
           return ListView.builder(
+            padding: EdgeInsets.symmetric(vertical: 60.0),
             itemCount: 1 + (snapshot.data as List<Task>).length,
             itemBuilder: (BuildContext context, int index) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  new Container(
-                    child: new Text ('Daily', style: new TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                    ),),
-                    decoration: new BoxDecoration(
-                        color: Colors.teal[900]
-                    ),
-                    alignment: Alignment(0,-1),
-                    Text (_dailyTaskList),
-                  ),
+              if (index == 0) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 2.0, horizontal: 40.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 10.0,
+                      ),
 
-                  new Container(
-                    child: new Text ('School', style: new TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                    ),),
-                    decoration: new BoxDecoration(
-                        color: Colors.teal[600]
-                    ),
-                    alignment: Alignment(0,-1),
+                    ],
                   ),
-                  new Container(
-                    child: new Text ('Work', style: new TextStyle(
-                        color: Colors.black54,
-                        fontSize: 30,
-                    ),),
-                    decoration: new BoxDecoration(
-                        color: Colors.teal[200]
-                    ),
-                    alignment: Alignment(0,-1),
-                  ),
-                ],
-              );
-              // return _buildTask((snapshot.data as List<Task>)[index - 1]);
-              // return Column(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: <Widget>[
-              //     new Container(
-              //       child: new Text ('Daily', style: new TextStyle(
-              //         color: Colors.white
-              //       ),),
-              //       decoration: new BoxDecoration(
-              //         color: Colors.teal[900]
-              //       ),
-              //       alignment: Alignment(0,-1),
-              //     ),
-              //     new Container(
-              //       child: new Text ('School', style: new TextStyle(
-              //           color: Colors.white
-              //       ),),
-              //       decoration: new BoxDecoration(
-              //           color: Colors.teal[600]
-              //       ),
-              //       alignment: Alignment(0,-1),
-              //     ),
-              //     new Container(
-              //       child: new Text ('Work', style: new TextStyle(
-              //           color: Colors.black54
-              //       ),),
-              //       decoration: new BoxDecoration(
-              //           color: Colors.teal[200]
-              //       ),
-              //       alignment: Alignment(0,-1),
-              //     ),
-              //   ],
-              // );
+                );
+              }
+              return _buildTask((snapshot.data as List<Task>)[index - 1]);
             },
           );
         },
       ),
     );
   }
-
 }

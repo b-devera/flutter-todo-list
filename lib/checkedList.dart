@@ -44,7 +44,7 @@ class _checkedList extends State<checkedList> {
         children: [
           ListTile(
             title: Text(
-              task.title!,
+              'Event: ${(task.title!)}',
               style: TextStyle(
                   fontFamily: 'ProximaNova',
                   fontWeight: FontWeight.w800,
@@ -188,19 +188,10 @@ class _checkedList extends State<checkedList> {
               if (index == 0) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 20.0, horizontal: 40.0),
+                      vertical: 2.0, horizontal: 40.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'No Tasks',
-                        style: TextStyle(
-                          fontFamily: 'ProximaNova',
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 30,
-                        ),
-                      ),
                       SizedBox(
                         height: 10.0,
                       ),
