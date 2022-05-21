@@ -1,3 +1,9 @@
+///
+/// Added by Atsuya
+/// CMPE-137
+/// 04/30/2022
+///
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
@@ -43,7 +49,7 @@ class _TodoListState extends State<TodoList> {
         children: [
           ListTile(
             title: Text(
-             'Event: ${(task.title!)}',
+             '${(task.title!)}',
               style: TextStyle(
                   fontFamily: 'ProximaNova',
                   fontWeight: FontWeight.w800,

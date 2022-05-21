@@ -1,3 +1,9 @@
+///
+/// Added by Atsuya
+/// CMPE-137
+/// 05/20/2022
+///
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
@@ -85,7 +91,7 @@ class _categoryList extends State<categoryList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Completed List',
+        title: Text('Sort by Category',
             style: TextStyle(
               fontFamily: 'ProximaNova',
               fontWeight: FontWeight.w800,
