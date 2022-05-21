@@ -1,8 +1,6 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:todo_app/Profile/profile_page.dart';
-import 'package:todo_app/RegisterList.dart';
-import 'package:todo_app/TodoList.dart';
-import 'package:todo_app/Account/signin.dart';
 import 'package:todo_app/Account/login.dart';
 
 ColorScheme defaultColorScheme = const ColorScheme(
