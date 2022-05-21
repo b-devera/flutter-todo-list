@@ -7,6 +7,7 @@ import 'package:todo_app/Database/ListData.dart';
 import 'package:todo_app/Database/database_setting.dart';
 import 'package:todo_app/RegisterList.dart';
 import 'package:todo_app/checkedList.dart';
+import 'package:todo_app/categoryList.dart';
 
 
 
@@ -113,10 +114,13 @@ class _TodoListState extends State<TodoList> {
                   iconSize: 30.0,
                   padding: EdgeInsets.only(left: 28.0),
                   icon: Icon(Icons.all_inbox),
-                  onPressed: (){
-                    setState(() {
-
-                    });
+                  onPressed: ()=> {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => categoryList(),
+                      ),
+                    )
                   },
                 ),
                 IconButton(
@@ -189,7 +193,7 @@ class _TodoListState extends State<TodoList> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'My Tasks',
+                        'No Tasks',
                         style: TextStyle(
                           fontFamily: 'ProximaNova',
                           color: Colors.black,

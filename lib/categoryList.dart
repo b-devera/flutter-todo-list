@@ -2,28 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:todo_app/Profile/profile_page.dart';
 import 'package:todo_app/Database/ListData.dart';
 import 'package:todo_app/Database/database_setting.dart';
 import 'package:todo_app/RegisterList.dart';
 import 'package:todo_app/TodoList.dart';
-import 'package:todo_app/categoryList.dart';
+import 'package:todo_app/checkedList.dart';
 
 
 
 
-
-class checkedList extends StatefulWidget {
+class categoryList extends StatefulWidget {
   // const TodoList({Key? key, required this.title}) : super(key: key);
   // final String title;
 
   @override
-  _checkedList createState() => _checkedList();
+  _categoryList createState() => _categoryList();
 }
 
-class _checkedList extends State<checkedList> {
+class _categoryList extends State<categoryList> {
   Future<List<Task>>? _taskList;
+
   final DateFormat _dateFormatter = DateFormat('MMM dd, yyyy');
+
+
 
   @override
   void initState() {
@@ -37,10 +40,12 @@ class _checkedList extends State<checkedList> {
     });
   }
 
+
   Widget _buildTask(Task task) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 25),
       child: Column(
+
         children: [
           ListTile(
             title: Text(
@@ -83,7 +88,7 @@ class _checkedList extends State<checkedList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Completed List',
+        title: Text('Category',
             style: TextStyle(
               fontFamily: 'ProximaNova',
               fontWeight: FontWeight.w800,
@@ -116,12 +121,12 @@ class _checkedList extends State<checkedList> {
                   icon: Icon(Icons.all_inbox),
                   onPressed: ()=> {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => categoryList(),
-                        ),
-                      )
-                    },
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => categoryList(),
+                      ),
+                    )
+                  },
                 ),
                 IconButton(
                   iconSize: 30.0,
@@ -182,34 +187,78 @@ class _checkedList extends State<checkedList> {
               .length;
 
           return ListView.builder(
-            padding: EdgeInsets.symmetric(vertical: 60.0),
             itemCount: 1 + (snapshot.data as List<Task>).length,
             itemBuilder: (BuildContext context, int index) {
-              if (index == 0) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 20.0, horizontal: 40.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'No Tasks',
-                        style: TextStyle(
-                          fontFamily: 'ProximaNova',
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 30,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-
-                    ],
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  new Container(
+                    child: new Text ('Daily', style: new TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                    ),),
+                    decoration: new BoxDecoration(
+                        color: Colors.teal[900]
+                    ),
+                    alignment: Alignment(0,-1),
+                    Text (_dailyTaskList),
                   ),
-                );
-              }
-              return _buildTask((snapshot.data as List<Task>)[index - 1]);
+
+                  new Container(
+                    child: new Text ('School', style: new TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                    ),),
+                    decoration: new BoxDecoration(
+                        color: Colors.teal[600]
+                    ),
+                    alignment: Alignment(0,-1),
+                  ),
+                  new Container(
+                    child: new Text ('Work', style: new TextStyle(
+                        color: Colors.black54,
+                        fontSize: 30,
+                    ),),
+                    decoration: new BoxDecoration(
+                        color: Colors.teal[200]
+                    ),
+                    alignment: Alignment(0,-1),
+                  ),
+                ],
+              );
+              // return _buildTask((snapshot.data as List<Task>)[index - 1]);
+              // return Column(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: <Widget>[
+              //     new Container(
+              //       child: new Text ('Daily', style: new TextStyle(
+              //         color: Colors.white
+              //       ),),
+              //       decoration: new BoxDecoration(
+              //         color: Colors.teal[900]
+              //       ),
+              //       alignment: Alignment(0,-1),
+              //     ),
+              //     new Container(
+              //       child: new Text ('School', style: new TextStyle(
+              //           color: Colors.white
+              //       ),),
+              //       decoration: new BoxDecoration(
+              //           color: Colors.teal[600]
+              //       ),
+              //       alignment: Alignment(0,-1),
+              //     ),
+              //     new Container(
+              //       child: new Text ('Work', style: new TextStyle(
+              //           color: Colors.black54
+              //       ),),
+              //       decoration: new BoxDecoration(
+              //           color: Colors.teal[200]
+              //       ),
+              //       alignment: Alignment(0,-1),
+              //     ),
+              //   ],
+              // );
             },
           );
         },
