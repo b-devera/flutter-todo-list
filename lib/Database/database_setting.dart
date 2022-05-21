@@ -10,20 +10,19 @@ class DatabaseSetting {
 
   static late Database _db;
 
-  String taskTable = 'task_table';
-  String id = 'id';
-  String name = 'name';
-  String category = 'category';
-  String date = 'date';
-  String time = 'time';
-  String checked = 'checked';
+  String tasksTable = 'task_table';
+  String colId = 'id';
+  String colTitle = 'title';
+  String colDate = 'date';
+  String colPriority = 'priority';
+  String colStatus = 'status';
 
-  Future<Database> get db async{
+  Future<Database> get db async {
     _db = await _initDb();
     return _db;
   }
 
-  Future<Database> _initDb() async{
+  Future<Database> _initDb() async {
     Directory dir = await getApplicationDocumentsDirectory();
     String path = dir.path + 'taskit.db';
     print(path);
@@ -34,12 +33,12 @@ class DatabaseSetting {
 
   void _createDb(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE $taskTable ($id INTEGER PRIMARY KEY AUTOINCREMENT,$name TEXT, $category TEXT, $date TEXT, $time TEXT,  $checked INTEGER)');
+        'CREATE TABLE $tasksTable ($colId INTEGER PRIMARY KEY AUTOINCREMENT,$colTitle TEXT, $colDate TEXT, $colPriority TEXT, $colStatus INTEGER)');
   }
 
   Future<List<Map<String, dynamic>>> getMapTaskList() async {
     Database db = await this.db;
-    final List<Map<String, dynamic>> result = await db.query(taskTable);
+    final List<Map<String, dynamic>> result = await db.query(tasksTable);
     return result;
   }
 
@@ -55,21 +54,21 @@ class DatabaseSetting {
 
   Future<int> insertTask(Task task) async {
     Database db = await this.db;
-    final int result = await db.insert(taskTable, task.toMap());
+    final int result = await db.insert(tasksTable, task.toMap());
     return result;
   }
 
   Future<int> updateTask(Task task) async {
     Database db = await this.db;
-    final int result = await db.update(taskTable, task.toMap(),
-        where: '$id = ?', whereArgs: [task.id]);
+    final int result = await db.update(tasksTable, task.toMap(),
+        where: '$colId = ?', whereArgs: [task.id]);
     return result;
   }
 
-  Future<int> deleteTask(int? lid) async {
+  Future<int> deleteTask(int? id) async {
     Database db = await this.db;
     final int result =
-    await db.delete(taskTable, where: '$id = ?', whereArgs: [lid]);
+    await db.delete(tasksTable, where: '$colId = ?', whereArgs: [id]);
     return result;
   }
 }

@@ -20,10 +20,8 @@ class TodoList extends StatefulWidget {
 }
 
 class _TodoListState extends State<TodoList> {
-
-
   Future<List<Task>>? _taskList;
-  final DateFormat _dateFormatter = DateFormat('MMM dd, YYYY');
+  final DateFormat _dateFormatter = DateFormat('MMM dd, yyyy');
 
   @override
   void initState() {
@@ -37,41 +35,40 @@ class _TodoListState extends State<TodoList> {
     });
   }
 
-  // Display todo list contents
-  Widget _buildTask(Task task){
+  Widget _buildTask(Task task) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 25),
       child: Column(
         children: [
           ListTile(
             title: Text(
-              task.name!,
+              task.title!,
               style: TextStyle(
                   fontFamily: 'ProximaNova',
                   fontWeight: FontWeight.w800,
                   fontSize: 18,
-                  decoration: task.checked == 0
+                  decoration: task.status == 0
                       ? TextDecoration.none
                       : TextDecoration.lineThrough),
             ),
             subtitle: Text(
-              '${_dateFormatter.format(task.date!)}',
+              '${_dateFormatter.format(task.date!)} * ${task.priority}',
               style: TextStyle(
                   fontFamily: 'ProximaNova',
                   fontWeight: FontWeight.w800,
                   fontSize: 15,
-                  decoration: task.checked == 0
+                  decoration: task.status == 0
                       ? TextDecoration.none
                       : TextDecoration.lineThrough),
             ),
             trailing: Checkbox(
               onChanged: (value) {
-                task.checked = value! ? 1 : 0;
+                task.status = value! ? 1 : 0;
                 DatabaseSetting.instance.updateTask(task);
                 _updateTaskList();
               },
               activeColor: Theme.of(context).primaryColor,
-              value: task.checked == 1 ? true : false,
+              value: task.status == 1 ? true : false,
             ),
             onTap: () => Navigator.push(
                 context,
@@ -85,50 +82,128 @@ class _TodoListState extends State<TodoList> {
     );
   }
 
-  // main body
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      drawer: Drawer(
+        child: Column(
+          children: [Text('Option 1'), Text('Option 2'), Text('Option 3')],
+        ),
+      ),
       appBar: AppBar(
-        title:  Text('Todo List',
-          style: TextStyle(
-            fontFamily: 'ProximaNova',
-            fontWeight: FontWeight.w800,
-          )),
+        title: Text('TaskIt',
+            style: TextStyle(
+              fontFamily: 'ProximaNova',
+              fontWeight: FontWeight.w800,
+            )),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: Container(
+            height: 75,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  iconSize: 30.0,
+                  padding: EdgeInsets.only(left: 28.0),
+                  icon: Icon(Icons.home),
+                  onPressed: (){
+                    setState(() {
+
+                    });
+                  },
+                ),
+                IconButton(
+                  iconSize: 30.0,
+                  padding: EdgeInsets.only(left: 28.0),
+                  icon: Icon(Icons.access_time_outlined),
+                  onPressed: (){
+                    setState(() {
+
+                    });
+                  },
+                ),
+                IconButton(
+                  iconSize: 30.0,
+                  padding: EdgeInsets.only(left: 28.0),
+                  icon: Icon(Icons.notifications_none),
+                  onPressed: (){
+                    setState(() {
+
+                    });
+                  },
+                ),
+                IconButton(
+                  iconSize: 30.0,
+                  padding: EdgeInsets.only(left: 28.0),
+                  icon: Icon(Icons.people),
+                  onPressed: ()=> {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ProfilePage(title: "profile"),
+                      ),
+                    )
+                  },
+                ),
+              ],
+            )
+        ),
+        // onTap: _onItemTapped,
+        // currentIndex: _selectedIndex,
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        onPressed: () => {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => RegisterList(updateTaskList: _updateTaskList),
+            ),
+          )
+        },
+        child: Icon(Icons.add),
       ),
       body: FutureBuilder(
         future: _taskList,
-        builder: (context, snapshot){
-          if (!snapshot.hasData){
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+        builder: (context, snapshot) {
+          // if (!snapshot.hasData) {
+          //   return Center(
+          //     child: CircularProgressIndicator(),
+          //   );
+          // }
+
+          final int? completedTaskCount = (snapshot.data as List<Task>)
+              .where((Task task) => task.status == 1)
+              .toList()
+              .length;
 
           return ListView.builder(
-              padding: EdgeInsets.symmetric(vertical: 60.0),
-              itemCount: 1 + (snapshot.data as List<Task>).length,
-              itemBuilder: (BuildContext context, int index) {
-                if (index == 0 || index == null) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 40.0),
-                    child: Column(
+            padding: EdgeInsets.symmetric(vertical: 60.0),
+            itemCount: 1 + (snapshot.data as List<Task>).length,
+            itemBuilder: (BuildContext context, int index) {
+              if (index == 0) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 20.0, horizontal: 40.0),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'No tasks',
+                        'My Tasks',
                         style: TextStyle(
-                            fontFamily: 'ProximaNova',
-                            color: Colors.black,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 30,
+                          fontFamily: 'ProximaNova',
+                          color: Colors.black,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 30,
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 10.0,
                       ),
+
                     ],
                   ),
                 );
@@ -136,85 +211,7 @@ class _TodoListState extends State<TodoList> {
               return _buildTask((snapshot.data as List<Task>)[index - 1]);
             },
           );
-        }
-      ),
-
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: Container(
-          height: 75,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                iconSize: 30.0,
-                padding: EdgeInsets.only(left: 28.0),
-                icon: Icon(Icons.home),
-                onPressed: (){
-                  setState(() {
-
-                  });
-                },
-              ),
-              IconButton(
-                iconSize: 30.0,
-                padding: EdgeInsets.only(left: 28.0),
-                icon: Icon(Icons.access_time_outlined),
-                onPressed: (){
-                  setState(() {
-
-                  });
-                },
-              ),
-              IconButton(
-                iconSize: 30.0,
-                padding: EdgeInsets.only(left: 28.0),
-                icon: Icon(Icons.notifications_none),
-                onPressed: (){
-                  setState(() {
-
-                  });
-                },
-              ),
-              IconButton(
-                iconSize: 30.0,
-                padding: EdgeInsets.only(left: 28.0),
-                icon: Icon(Icons.people),
-                onPressed: ()=> {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ProfilePage(title: "profile"),
-                    ),
-                  )
-                },
-              ),
-            ],
-          )
-        ),
-        // onTap: _onItemTapped,
-        // currentIndex: _selectedIndex,
-      ),
-      floatingActionButton: Container(
-        height: 65.0,
-        width: 65.0,
-        child: FittedBox(
-          child: FloatingActionButton(
-            onPressed: () => {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => RegisterList(updateTaskList: _updateTaskList),
-                ),
-              )
-            },
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-          ),
-        ),
+        },
       ),
     );
   }
