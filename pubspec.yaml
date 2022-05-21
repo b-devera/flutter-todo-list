@@ -38,6 +38,9 @@ dependencies:
   animated_bottom_navigation_bar:
   auto_size_text_pk:
   flutter_datetime_picker:
+  sqflite:
+  path:
+  intl:
 
 
   # The following adds the Cupertino Icons font to your application.

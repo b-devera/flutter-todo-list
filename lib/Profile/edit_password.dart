@@ -36,7 +36,7 @@ class EditPasswordFormPageState extends State<EditPasswordFormPage> {
                 SizedBox(
                     width: 320,
                     child: const Text(
-                      "What's Your Password Number?",
+                      "What's Your Password?",
                       style:
                       TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     )),
@@ -49,13 +49,13 @@ class EditPasswordFormPageState extends State<EditPasswordFormPage> {
                           // Handles Form Validation
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your password number';
+                              return 'Please enter your password';
                             }
                             return null;
                           },
                           controller: passwordController,
                           decoration: const InputDecoration(
-                            labelText: 'Your Password Number',
+                            labelText: 'Your Password',
                           ),
                         ))),
                 Padding(

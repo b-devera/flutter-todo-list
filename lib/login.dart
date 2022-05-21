@@ -95,8 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                       if (_formKey.currentState!.validate()) {
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                              const TodoList(title: 'ToDo list'),
+                                builder: (_) => TodoList()
                             ),
                         );
                       }
