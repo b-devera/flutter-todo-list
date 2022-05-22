@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:todo_app/Account/login.dart';
+import 'package:todo_app/TodoList.dart';
 
 ColorScheme defaultColorScheme = const ColorScheme(
   primary: Color(0x2B72FFFF),
@@ -30,7 +31,7 @@ class TodoApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Todo List',
 
-      home: LoginPage(title: 'login'),
+      home: TodoList(),
 
     );
   }
